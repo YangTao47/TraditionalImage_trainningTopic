@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\Project1\Project1\nw.cpp">
+    <ClCompile Include="图像旋转.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
