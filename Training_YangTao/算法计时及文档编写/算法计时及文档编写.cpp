@@ -4,7 +4,7 @@ using namespace std;
 #include<ctime>
 using namespace cv;
 
-// at
+/* 利用成员函数at */
 void at_method1(Mat &image)
 {
 	for (int i = 0; i < image.rows; i++)
@@ -25,7 +25,7 @@ void at_method1(Mat &image)
 	}
 
 }
-//data
+/*利用成员变量data*/
 void data_method2(Mat &image)
 {
 	for (int i = 0; i < image.rows; i++)//行
@@ -38,21 +38,21 @@ void data_method2(Mat &image)
 				int indexs = i * image.cols + j;
 				image.data[indexs] = 255;
 			}
-			//else if (image.channels() == 3)
-			//{
-			//	int indexs = i * image.cols + j;
-			//	//在彩色图像中，每个indexs又是三个通过的数组
-			//	image.data[3 * indexs + 0] = 255;
-			//	image.data[3 * indexs + 1] = 255;
-			//	image.data[3 * indexs + 2] = 255;
+			/*else if (image.channels() == 3)
+			{
+				int indexs = i * image.cols + j;
+				//在彩色图像中，每个indexs又是三个通过的数组
+				image.data[3 * indexs + 0] = 255;
+				image.data[3 * indexs + 1] = 255;
+				image.data[3 * indexs + 2] = 255;
 
-			//}
+			}*/
 		}
 	}
 
 }
 
-//ptr
+/*利用成员函数ptr*/
 void ptr_method3(Mat &image)
 {
 	for (int i = 0; i < image.rows; i++)
@@ -66,21 +66,21 @@ void ptr_method3(Mat &image)
 				uchar* image_rows_ptr = image.ptr<uchar>(i);
 				image_rows_ptr[j] = 255;
 			}
-			//else
-			//{
-			//	Vec3b* image_rows_ptr = image.ptr<Vec3b>(i);
-			//	//每行指针的地址，又代表一行数组名称，因此下面就是遍历一行中的列数组数据
+			/*else
+			{
+				vec3b* image_rows_ptr = image.ptr<vec3b>(i);
+				//每行指针的地址，又代表一行数组名称，因此下面就是遍历一行中的列数组数据
 
-			//	image_rows_ptr[j][0] = 255;
-			//	image_rows_ptr[j][1] = 255;
-			//	image_rows_ptr[j][2] = 255;
-			//}
+				image_rows_ptr[j][0] = 255;
+				image_rows_ptr[j][1] = 255;
+				image_rows_ptr[j][2] = 255;
+			}*/
 		}
 		
 	}
 
 }
-//iterator
+/*利用迭代器iterator*/
 void iterator_method4(Mat& image)
 {
 	Mat_<uchar>::iterator itbegin = image.begin<uchar>();
