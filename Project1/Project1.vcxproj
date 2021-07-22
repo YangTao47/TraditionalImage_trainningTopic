@@ -18,9 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="图像旋转.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{74F889A7-E512-4E9B-A6B9-02D2F5B7E7F3}</ProjectGuid>
     <RootNamespace>Project1</RootNamespace>
