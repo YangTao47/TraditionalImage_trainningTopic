@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\训练题保存\Project1\OpenCV调用及Mat基本操作.cpp">
+    <ClCompile Include="OpenCV调用及Mat基本操作.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

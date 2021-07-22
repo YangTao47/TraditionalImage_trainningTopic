@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{0511BADE-5E92-4065-9B91-7498BD299A68}</ProjectGuid>
-    <RootNamespace>算法计时及文档编写</RootNamespace>
+    <ProjectGuid>{AB5EB888-D9FE-4AB0-BEE7-1F0F0FD15FCA}</ProjectGuid>
+    <RootNamespace>OpenCV调用及Mat基本操作</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -67,7 +67,6 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\XVisionRoot\XLibs\xcore341.props" />
     <Import Project="..\..\..\XVisionRoot\XLibs\opencv341.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -113,7 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="算法计时及文档编写.cpp" />
+    <ClCompile Include="OpenCV调用及Mat基本操作.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

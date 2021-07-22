@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1973FB86-BC02-4F05-9151-CE29EA1CEA3D}</ProjectGuid>
-    <RootNamespace>OpenCV调用及Mat基本操作</RootNamespace>
+    <ProjectGuid>{0831E1BB-E7AB-4498-877D-750CB8924E16}</ProjectGuid>
+    <RootNamespace>算法计时及文档编写</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -112,7 +112,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\训练题保存\Project1\OpenCV调用及Mat基本操作.cpp" />
+    <ClCompile Include="算法计时及文档编写.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
