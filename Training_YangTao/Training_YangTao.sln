@@ -13,6 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageSegmentation", "ImageS
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Targeting", "Targeting\Targeting.vcxproj", "{D74A00B8-E6DC-4772-895B-902C9B6D0E02}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrossMarkerPositioning", "CrossMarkerPositioning\CrossMarkerPositioning.vcxproj", "{6873C56D-D83E-463F-AC4A-3EFA6981E057}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DigitalRecognition", "DigitalRecognition\DigitalRecognition.vcxproj", "{D774CD2F-4E24-4580-95CA-462630A8D2CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +65,18 @@ Global
 		{D74A00B8-E6DC-4772-895B-902C9B6D0E02}.Release|x64.Build.0 = Release|x64
 		{D74A00B8-E6DC-4772-895B-902C9B6D0E02}.Release|x86.ActiveCfg = Release|Win32
 		{D74A00B8-E6DC-4772-895B-902C9B6D0E02}.Release|x86.Build.0 = Release|Win32
+		{6873C56D-D83E-463F-AC4A-3EFA6981E057}.Debug|x64.ActiveCfg = Debug|x64
+		{6873C56D-D83E-463F-AC4A-3EFA6981E057}.Debug|x64.Build.0 = Debug|x64
+		{6873C56D-D83E-463F-AC4A-3EFA6981E057}.Debug|x86.ActiveCfg = Debug|x64
+		{6873C56D-D83E-463F-AC4A-3EFA6981E057}.Release|x64.ActiveCfg = Release|x64
+		{6873C56D-D83E-463F-AC4A-3EFA6981E057}.Release|x64.Build.0 = Release|x64
+		{6873C56D-D83E-463F-AC4A-3EFA6981E057}.Release|x86.ActiveCfg = Release|x64
+		{D774CD2F-4E24-4580-95CA-462630A8D2CF}.Debug|x64.ActiveCfg = Debug|x64
+		{D774CD2F-4E24-4580-95CA-462630A8D2CF}.Debug|x64.Build.0 = Debug|x64
+		{D774CD2F-4E24-4580-95CA-462630A8D2CF}.Debug|x86.ActiveCfg = Debug|x64
+		{D774CD2F-4E24-4580-95CA-462630A8D2CF}.Release|x64.ActiveCfg = Release|x64
+		{D774CD2F-4E24-4580-95CA-462630A8D2CF}.Release|x64.Build.0 = Release|x64
+		{D774CD2F-4E24-4580-95CA-462630A8D2CF}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

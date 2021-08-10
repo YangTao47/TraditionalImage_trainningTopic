@@ -2,72 +2,87 @@
 #include<iostream>
 using namespace std;
 using namespace cv;
-Mat ImgRotate(Mat original, float angle);
-vector<Point> rotatePixels(const int r, const int c, const double input_theta, const Point center_point);
-void pixelAssignment(Mat& matRet, Mat& original, vector<Point>p, const int r, const int c);
+
+class RotateImage
+{
+public:
+
+	Mat rotateImage(Mat& src, Mat& dst, float angle)
+	{
+		Mat result;
+		result = rotatePixels(src, dst, angle);
+		return result;
+	}
+	
+private:
+
+	Mat rotatePixels(Mat& src, Mat& dst, float angle)
+	{
+		Mat rotation_matrix;
+		rotation_matrix = calculateRotationMatrix(src, angle);
+		for (int c = 0; c < dst.cols; c++)
+		{
+			for (int r = 0; r < dst.rows; r++)
+			{
+				swapPixelValues(dst, src, r, c, rotation_matrix);
+			}
+		}
+		return dst;
+	}
+
+	Mat calculateRotationMatrix(Mat& src, float angle)
+	{
+		double input_theta = angle * CV_PI / 180.0;
+		float cos_theta = (float)cos(input_theta);
+		float sin_theta = (float)sin(input_theta);
+		int center_point_x = src.cols / 2;
+		int center_point_y = src.rows / 2;
+		Mat rotation_matrix = (Mat_<float>(3, 3) << cos_theta, -sin_theta, (1 - cos_theta) * center_point_x + sin_theta * center_point_y,
+												    sin_theta, cos_theta, (1 - cos_theta) * center_point_y - sin_theta * center_point_x,
+													0,        0,          1);
+		return rotation_matrix;
+	}
+
+	void swapPixelValues(Mat& dst, Mat& src, int dst_r, int dst_c, Mat& rotation_matrix)
+	{
+		float output_x0 = 0, output_y0 = 0;
+		Mat dst_matrix = (Mat_<float>(3, 1) << dst_c, dst_r, 1);
+		Mat src_matrix = (Mat_<float>(3, 1) << output_x0, output_y0, 1);
+		src_matrix = rotation_matrix * dst_matrix;
+
+		float src_x = src_matrix.at<float>(0, 0);
+		float src_y = src_matrix.at<float>(1, 0);
+
+		int point_low_x = int(floor(src_x));
+		int point_up_x= int(ceil(src_x));
+		int point_low_y = int(floor(src_y));
+		int point_up_y= int(ceil(src_y));
+
+		float a = abs(src_x - point_low_x);
+		float b = abs(src_y - point_low_y);
+
+		int src_rows = src.rows;
+		int src_cols = src.cols;
+
+		/* 限制旋转点不超出原图范围  双线性插值得到像素值 */
+		if (point_low_x > 0 && point_low_x < src_cols && point_up_x > 0 && point_up_x < src_cols
+			&& point_low_y > 0 && point_low_y < src_rows && point_up_y >= 0 && point_up_y < src_rows)
+		{	
+			dst.at<Vec3b>(dst_r, dst_c) = b * (a * src.at<Vec3b>(point_up_y, point_up_x) + (1 - a) * src.at<Vec3b>(point_up_y, point_low_x))
+				+ (1 - b) * (a * src.at<Vec3b>(point_low_y, point_up_x) + (1 - a) * src.at<Vec3b>(point_low_y, point_low_x));
+		}
+	}
+};
 
 int main()
 {
+	RotateImage rotation;
+	Mat src;
 	float angle;
 	cin >> angle;
-	Mat image;
-	image = imread("lena.jpg");
-	Mat imageout;
-	imageout = ImgRotate(image, angle);
-	imwrite("result.jpg", imageout);
+	src = imread("R-C.jpg");
+	Mat dst(src.rows, src.cols, src.type(), Scalar(0));
+	dst = rotation.rotateImage(src, dst, angle);
+	imwrite("result.jpg", dst);
 	return 0;
-}
-
-Mat ImgRotate(Mat original, float angle)
-{
-	vector<Point>p;
-	Point center_point;
-	double input_theta = angle * CV_PI / 180.0;
-	int src_rows = original.rows;//225
-	int src_cols = original.cols;//400
-	center_point.x = src_cols / 2;
-	center_point.y = src_rows / 2;
-	Mat matRet(src_rows, src_cols, original.type(), Scalar(0));	
-	/* 旋转后的图到原图的顺时针投影 */
-	for (int c = 0; c < src_cols; c++)
-	{
-		for (int r = 0; r < src_rows; r++)
-		{
-			p = rotatePixels(r, c, input_theta, center_point);
-			if (p[1].x >= 0 && p[1].x < 400 && p[0].x >= 0 && p[0].x < 400 
-				&& p[1].y >= 0 && p[1].y < 225 && p[0].y >= 0 && p[0].y < 225)
-			{
-				pixelAssignment(matRet, original, p, r, c);
-			}
-		}
-	}
-	return matRet;
-}
-
-vector<Point> rotatePixels(const int r, const int c, const double input_theta,const Point center_point)
-{
-	vector<Point>p;
-	Point2i point_up, point_low;
-	Point2d a;
-	double cos_theta = cos(input_theta);
-	double sin_theta = sin(input_theta);
-	double output_x0 = cos_theta*c + -sin_theta*r + (1 - cos_theta)*center_point.x + sin_theta*center_point.y;
-	double output_y0 = sin_theta*c + cos_theta*r + (1 - cos_theta)*center_point.y - sin_theta*center_point.x;
-	point_low.x = int(floor(output_x0));
-	point_up.x = int(ceil(output_x0));
-	point_low.y = int(floor(output_y0));
-	point_up.y = int(ceil(output_y0));
-	a.x = output_x0 - point_low.x;
-	a.y = output_y0 - point_low.y;
-	p.push_back(point_up);
-	p.push_back(point_low);
-	p.push_back(a);
-	return p;
-
-}
-
-void pixelAssignment(Mat& matRet, Mat& original, vector<Point>p, const int r, const int c) 
-{
-	matRet.at<Vec3b>(r, c) = p[2].y*(p[2].x*original.at<Vec3b>(p[0].y, p[0].x) + (1 - p[2].x)*original.at<Vec3b>(p[0].y, p[1].x))
-		+ (1 - p[2].y)*(p[2].x*original.at<Vec3b>(p[1].y, p[0].x) + (1 - p[2].x)*original.at<Vec3b>(p[1].y, p[1].x));
 }
