@@ -11,3 +11,4 @@ struct CellBoardCoordinates
 	Point boardCoordinates;
 
 };
+

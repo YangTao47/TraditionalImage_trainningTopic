@@ -38,6 +38,7 @@ struct Template
     void write(cv::FileStorage &fs) const;
 };
 
+/*颜色梯度金字塔*/
 class ColorGradientPyramid
 {
 public:
@@ -53,7 +54,7 @@ public:
 
 public:
     void update();
-    /// Candidate feature with a score
+    /// Candidate feature with a score (候选特征打分)
     struct Candidate
     {
         Candidate(int x, int y, int label, float score);
@@ -85,6 +86,7 @@ public:
 };
 inline ColorGradientPyramid::Candidate::Candidate(int x, int y, int label, float _score) : f(x, y, label), score(_score) {}
 
+/*颜色梯度*/
 class ColorGradient
 {
 public:
@@ -101,7 +103,7 @@ public:
 
     cv::Ptr<ColorGradientPyramid> process(const cv::Mat src, const cv::Mat &mask = cv::Mat()) const
     {
-        return cv::makePtr<ColorGradientPyramid>(src, mask, weak_threshold, num_features, strong_threshold);
+        return cv::makePtr<ColorGradientPyramid>(src, mask, weak_threshold, num_features, strong_threshold);//堆区创建内存
     }
 };
 
@@ -185,11 +187,11 @@ public:
     void writeClasses(const std::string &format = "templates_%s.yml.gz") const;
 
 protected:
-    cv::Ptr<ColorGradient> modality;
-    int pyramid_levels;
+    cv::Ptr<ColorGradient> modality;//形式；样式；模式
+    int pyramid_levels; //金字塔等级
     std::vector<int> T_at_level;
 
-    typedef std::vector<Template> TemplatePyramid;
+    typedef std::vector<Template> TemplatePyramid;//模板数组，模板金字塔
     typedef std::map<std::string, std::vector<TemplatePyramid>> TemplatesMap;
     TemplatesMap class_templates;
 
@@ -230,7 +232,7 @@ public:
         }
     };
     std::vector<Info> infos;
-
+	/*构造函数给类内成员属性赋值*/
     shapeInfo_producer(cv::Mat src, cv::Mat mask = cv::Mat()){
         this->src = src;
         if(mask.empty()){
@@ -240,7 +242,7 @@ public:
             this->mask = mask;
         }
     }
-
+	/*模板旋转函数*/
     static cv::Mat transform(cv::Mat src, float angle, float scale){
         cv::Mat dst;
 
@@ -250,6 +252,7 @@ public:
 
         return dst;
     }
+	/*信息保存*/
     static void save_infos(std::vector<shapeInfo_producer::Info>& infos, std::string path = "infos.yaml"){
         cv::FileStorage fs(path, cv::FileStorage::WRITE);
 
@@ -264,6 +267,7 @@ public:
         }
         fs << "]";
     }
+	/*信息提取*/
     static std::vector<Info> load_infos(std::string path = "info.yaml"){
         cv::FileStorage fs(path, cv::FileStorage::READ);
 
@@ -278,6 +282,7 @@ public:
         return infos;
     }
 
+	/*信息生成*/
     void produce_infos(){
         infos.clear();
 

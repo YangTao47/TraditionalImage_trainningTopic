@@ -2,7 +2,6 @@
 #include<opencv2\opencv.hpp>
 #include<ctime>
 #include<chrono>
-using namespace std::chrono;
 using namespace cv;
 using namespace std;
 
@@ -118,14 +117,14 @@ int main()
 {	
 	const int kRectangleX = 6576, kRectangleY = 4383;
 	Mat image(kRectangleY, kRectangleX, CV_8UC1, Scalar(0));
-	time_point<high_resolution_clock> start_time = high_resolution_clock::now();
+	chrono::time_point<chrono::high_resolution_clock> start_time = chrono::high_resolution_clock::now();
 	Tranversing test;
 	for (int i = 0; i <= 10; i++)
 	{
 		test.ptrMethod6(image);
 	}
-	time_point<high_resolution_clock> end_time = high_resolution_clock::now();
-	milliseconds processing_time = duration_cast<milliseconds>(end_time - start_time)/10;
+	chrono::time_point<chrono::high_resolution_clock> end_time = chrono::high_resolution_clock::now();
+	chrono::milliseconds processing_time = chrono::duration_cast<chrono::milliseconds>(end_time - start_time)/10;
 	cout << processing_time.count() << endl;
 	return 0;
 }

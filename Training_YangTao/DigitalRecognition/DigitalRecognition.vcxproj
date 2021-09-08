@@ -10,6 +10,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CellBoardCoordinates.h" />
+    <ClInclude Include="DigitalRecognition.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DigitalRecognition.cpp" />
+    <ClCompile Include="GetBoardCoordinates.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D774CD2F-4E24-4580-95CA-462630A8D2CF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -84,14 +93,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="DigitalRecognition.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CellBoardCoordinates.h" />
-    <ClInclude Include="DigitalRecognition.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
