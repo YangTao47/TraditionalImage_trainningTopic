@@ -171,7 +171,9 @@ void DigitalRecognition::replacePixels(Mat& image, bool use_cache_mat1)
 			for (int j = 0; j < cols; j++)
 			{
 				if (j + roiScale >= cols) {
-					if ((image.at<uchar>(i, j) - image.at<uchar>(i, cols - 1) != 0) || (image.at<uchar>(i, j) - image.at<uchar>(i, j - roiScale) == 255)) {
+					bool condition1 = (image.at<uchar>(i, j) - image.at<uchar>(i, cols - 1) != 0);
+					bool condition2 = (image.at<uchar>(i, j) - image.at<uchar>(i, j - roiScale) == 255);
+					if (condition1 || condition2) {
 						image.at<uchar>(i, j) = 0;
 					}
 				}
