@@ -27,7 +27,7 @@ vector<CellBoardCoordinates> DigitalRecognition::extractCellCoordinates(const Ma
 
 void DigitalRecognition::findCellBox(const Mat& src, vector<vector<Point>>& grid_corner)
 {
-	Mat gray_image, binary_image, reverse_image, denoise_image, output, small_image;
+	Mat gray_image, binary_image, reverse_image, denoise_image, scored_map, small_image;
 	vector<Point> cross_point;
 	CV_Assert(src.channels() == 1);
 	medianBlur(src, gray_image, 13);
@@ -40,9 +40,9 @@ void DigitalRecognition::findCellBox(const Mat& src, vector<vector<Point>>& grid
 	resize(denoise_image, small_image, Size(int(smallScale * denoise_image.cols), int(smallScale * denoise_image.rows)));
 	threshold(small_image, small_image, 1, 255, THRESH_BINARY + THRESH_OTSU);
 
-	output = computeScoreMap(small_image, Size(roiScale, roiScale / 2), Size(roiScale / 2, roiScale));
-	resize(output, output, Size(int(bigScale * output.cols), int(bigScale * output.rows)));
-	computeCrossPoint(output, cross_point);
+	scored_map = computeScoreMap(small_image, Size(roiScale, roiScale / 2), Size(roiScale / 2, roiScale));
+	resize(scored_map, scored_map, Size(int(bigScale * scored_map.cols), int(bigScale * scored_map.rows)));
+	computeCrossPoint(scored_map, cross_point);
 	sortCorners(cross_point, grid_corner, gray_image);
 
 	/*for (int i = 0; i < grid_corner.size(); i++) {
@@ -100,16 +100,22 @@ void DigitalRecognition::computeCrossPoint(const Mat& src, vector<Point>& cross_
 	int cols = src.cols;
 	vector<vector<Point>> contours;
 	threshold(src, src, 200, 255, THRESH_BINARY);
+	/****************************输入Canny图寻找轮廓，找到轮廓最小外接圆中心（粗定位不返回原图做）*******************************************/
 	Canny(src, canny_image, 1, 3);
 	findContours(canny_image, contours, CV_RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
 	for (int i = 0; i < contours.size(); i++) {
-		Point2f temp;
+		Point2f temp_center_point;
 		float temp_offset = (float)expandPixels;
 		float temp_radiu;
-		minEnclosingCircle(contours[i], temp, temp_radiu);
+		minEnclosingCircle(contours[i], temp_center_point, temp_radiu);
 		// 将原点移回原图左上角
-		cross_points.push_back(temp - Point2f(temp_offset, temp_offset));
+		cross_points.push_back(temp_center_point - Point2f(temp_offset, temp_offset));
 	}
+	/***********************方法二点集分类，boundingRect寻找左上角，在原图中找到ROI区域（精定位） ***************************************/
+	/*for (auto& i : contours) {
+		Rect temp_rect = boundingRect(i);
+		Point temp_point(temp_rect.x, temp_rect.y);
+	}*/
 }
 
 Mat DigitalRecognition::computeScoreMap(Mat& gray_image, Size& ksize1, Size& ksize2)
@@ -195,7 +201,7 @@ bool cmp_grid_corner(vector<Point> a, vector<Point> b)
 	}
 }
 
-void DigitalRecognition::sortCorners(vector<Point> corners, vector<vector<Point>>& grid_corner, Mat& gray_image)
+void DigitalRecognition::sortCorners(vector<Point>& corners, vector<vector<Point>>& grid_corner, Mat& gray_image)
 {
 	vector<vector<Point>>cell_box_temp;
 	//寻找左上右上
@@ -244,6 +250,6 @@ void DigitalRecognition::sortCorners(vector<Point> corners, vector<vector<Point>
 			grid_corner.push_back(cell_box_temp[i]);
 		}
 	}
-	//排序
+	//按从左到右，从上到下给grid排序
 	sort(grid_corner.begin(), grid_corner.end(), cmp_grid_corner);
 }

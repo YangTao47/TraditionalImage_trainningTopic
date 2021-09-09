@@ -26,7 +26,7 @@ private:
 	const int replacePixelsHighValue = 134;
 
 
-	Point getBoardCoordinates(const Mat& src, vector<vector<Point>> P, int i);
+	Point getBoardCoordinates(const Mat& src, vector<vector<Point>>& P, int i);
 	Point composeNumbers(int num1, int num2, int num3, int num4);
 	int matchTemplates(const Mat& src, int nums);
 	void findCellBox(const Mat& src, vector<vector<Point>>& grid_corner);
@@ -36,5 +36,5 @@ private:
 	Mat computeScoreMap(Mat& gray_image, Size& ksize1, Size& ksize2);
 	void replacePixels(Mat& image, bool use_cache_mat1 = true);
 	void computeCrossPoint(const Mat& src, vector<Point>& cross_points);
-	void sortCorners(vector<Point> corners, vector<vector<Point>>& grid_corner, Mat& gray_image);
+	void sortCorners(vector<Point>& corners, vector<vector<Point>>& grid_corner, Mat& gray_image);
 };

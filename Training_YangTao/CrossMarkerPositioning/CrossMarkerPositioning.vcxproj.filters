@@ -18,61 +18,8 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="line2Dup.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="line2Dup.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp_impl_AVX.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp_impl_AVX512.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp_impl_NEON.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp_impl_SSE.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp_object.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp_scalar_op.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\mipp_scalar_op.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\avx_mathfun.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\avx_mathfun.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\avx512_mathfun.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\avx512_mathfun.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\neon_mathfun.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\neon_mathfun.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\sse_mathfun.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MIPP\math\sse_mathfun.hxx">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
 using namespace cv;
 using namespace std;
 
-Point DigitalRecognition::getBoardCoordinates(const Mat& src, vector<vector<Point>> P, int i)
+Point DigitalRecognition::getBoardCoordinates(const Mat& src, vector<vector<Point>>& P, int i)
 {
 	Point board_coordinate;
 	Point2f srcTri[4];
@@ -70,9 +70,9 @@ Point DigitalRecognition::composeNumbers(int num1, int num2, int num3, int num4)
 /* 模板匹配函数 */
 int DigitalRecognition::matchTemplates(const Mat& src, int nums)
 {
-	double minVal = 0, maxVal = 0;
+	double min_val = 0, max_val = 0;
 	double temp = 0;
-	int serieNums = 0;
+	int num = 0;
 	Mat img_result;
 	for (int i = 0; i < nums; i++)
 	{
@@ -81,16 +81,16 @@ int DigitalRecognition::matchTemplates(const Mat& src, int nums)
 		Mat Template = imread(name, CV_LOAD_IMAGE_GRAYSCALE);
 		resize(Template, Template, Size(18, 30));
 		matchTemplate(src, Template, img_result, TM_CCOEFF_NORMED);
-		minMaxIdx(img_result, &minVal, &maxVal);
-		if (temp < maxVal)
+		minMaxIdx(img_result, &min_val, &max_val);
+		if (temp < max_val)
 		{
-			temp = maxVal;
-			serieNums = i;
+			temp = max_val;
+			num = i;
 		}
 	}
 	/*模板从0到19  0-9为黑底白字 10-19为白底黑字*/
-	if (serieNums >= 10){
-		serieNums -= 10;
+	if (num >= 10){
+		num -= 10;
 	}
-	return serieNums;
+	return num;
 }
